@@ -1,71 +1,61 @@
-import json
-import requests
 import os
+import requests
+import streamlit as st
 from dotenv import load_dotenv
-
-
-# get environment variables from .env
 load_dotenv()
+from bip44 import Wallet
+from web3 import Account
+from web3.auto.infura.kovan import w3
+from web3 import middleware
+from web3.gas_strategies.time_based import medium_gas_price_strategy
+from functions import get_balance, place_bet_on_team_1, place_bet_on_team_2
 
-# API key can be obtained from the-odds-api.com
-# set api key as variable from .env file
-api_key = os.getenv('KEY')
+# url = "https://api-nba-v1.p.rapidapi.com/seasons/"
 
-# print(type(api_key)) test only code
+# headers = {
+#     'x-rapidapi-key': "203552ca96msheaefa34140ffcb4p106269jsnd1a86cee97e8",
+#     'x-rapidapi-host': "api-nba-v1.p.rapidapi.com"
+#     }
 
-# First get a list of in-season sports
-sports_response = requests.get('https://api.the-odds-api.com/v3/sports', params={
-    'api_key': api_key
-})
+# response = requests.request("GET", url, headers=headers)
 
-sports_json = json.loads(sports_response.text)
+# print(response.text)
 
-if not sports_json['success']:
-    print(
-        'There was a problem with the sports request:',
-        sports_json['msg']
-    )
-
-else:
-    print()
-    print(
-        'Successfully got {} sports'.format(len(sports_json['data'])),
-        'Here\'s the first sport:'
-    )
-    print(sports_json['data'][0])
+# Step 1, get data from API
+# Step 2, display data and give option to bet on either team
+# Step 3, display the amount of current bets on both teams
+# Step 3 cont, write code to pay winners based on their % cont to pot
+# Step 4, ability to connect ether wallets (metamask if possible)
+# Step 5, get winner of game with api
+# Step 6, pay winners with their stake from loser's pool 
 
 
 
-# To get odds for a sepcific sport, use the sport key from the last request
-#   or set sport to "upcoming" to see live and upcoming across all sports
-sport_key = 'upcoming'
+# Stramlit code
+st.header('Welcome to Beating the Odds!')
 
-odds_response = requests.get('https://api.the-odds-api.com/v3/odds', params={
-    'api_key': api_key,
-    'sport': sport_key,
-    'region': 'uk', # uk | us | eu | au
-    'mkt': 'h2h' # h2h | spreads | totals
-})
+st.text('Place Your Bets with the Options Below')
 
-odds_json = json.loads(odds_response.text)
-if not odds_json['success']:
-    print(
-        'There was a problem with the odds request:',
-        odds_json['msg']
-    )
 
-else:
-    # odds_json['data'] contains a list of live and 
-    #   upcoming events and odds for different bookmakers.
-    # Events are ordered by start time (live events are first)
-    print()
-    print(
-        'Successfully got {} events'.format(len(odds_json['data'])),
-        'Here\'s the first event:'
-    )
-    print(odds_json['data'][0])
+# Make the pools for both teams
+team1_pool = 0
+team2_pool = 0
 
-    # Check your usage
-    print()
-    print('Remaining requests', odds_response.headers['x-requests-remaining'])
-    print('Used requests', odds_response.headers['x-requests-used'])
+# Sidebar
+st.sidebar.markdown("## Betting Slip")
+
+
+# Take bets
+bet_1 = st.sidebar.number_input('How much would you like to bet on team 1?')
+bet_2 = st.sidebar.number_input('How much would you like to bet on team 2?')
+
+# Add the bets to the bet pool
+team1_pool += bet_1
+team2_pool += bet_2
+
+# Display the current pools to the user
+st.text(f'The current prize pool for team 1 is {team1_pool}')
+st.text(f'The current prize pool for team 2 is {team2_pool}')
+
+
+
