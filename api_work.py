@@ -21,13 +21,15 @@ conn = http.client.HTTPSConnection("api.sportradar.us")
 
 # TODO: Uncomment the line below this for the current date
 # conn.request("GET", f"/nba/trial/v7/en/games/{y}/schedule.json?api_key={sportradar_api_key}") 
-conn.request("GET", f"/nba/trial/v7/en/games/2021/06/06/schedule.json?api_key={sportradar_api_key}") # THIS IS FOR TESTING ONLY
+conn.request("GET", f"/nba/trial/v7/en/games/2021/06/06/schedule.json?api_key={sportradar_api_key}") # THIS IS FOR TESTING ONLY NOT CURRENT DATE
 
 res = conn.getresponse()
 data = res.read()
 
 # print(data.decode("utf-8"))
 my_data = data.decode("utf-8")
+# print(data[15])
+
 
 # PATTERN = '''
 #     \s*                         # Any amount of space
@@ -47,11 +49,11 @@ my_data = data.decode("utf-8")
 
 
 # home_score = my_data["games"][5]
-scores = my_data[250:450]
+# scores = my_data[250:450]
 
-home_score = scores[9:12]
+# home_score = scores[9:12]
 
-away_score = scores[27:30]
+# away_score = scores[27:30]
 
 
-print(home_score, away_score)
+# print(home_score, away_score)
