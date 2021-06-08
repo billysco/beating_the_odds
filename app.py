@@ -8,7 +8,7 @@ from web3 import Account
 from web3.auto.infura.kovan import w3
 from web3 import middleware
 from web3.gas_strategies.time_based import medium_gas_price_strategy
-from functions import get_balance, # place_bet_on_team_1, place_bet_on_team_2
+from functions import get_balance # place_bet_on_team_1, place_bet_on_team_2
 
 # url = "https://api-nba-v1.p.rapidapi.com/seasons/"
 
