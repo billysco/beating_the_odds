@@ -1,18 +1,10 @@
-import datetime
-import pytz
+from string_work import start_time
+from datetime import datetime, timezone
 
-x = datetime.datetime.now()
+dt_now = datetime.now(tz=timezone.utc)
+# dt_ts = datetime.fromtimestamp(1571595618.0, tz=timezone.utc)
 
-# print(x.year)
-# print(x.month)
-print(x.strftime("%Y/%m/%d"))
+time = dt_now.strftime("%H:%M:%S")
+date = dt_now.strftime("%Y-%m-%d")
 
-local_time = x.strftime("%H:%M:%S")
-
-print(local_time)
-
-# utc_time = local_time.astimezone(pytz.utc)
-
-# print(utc_time)
-
-print(x)
+game_time = "2021-06-10T01:30:00Z"
