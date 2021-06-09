@@ -9,6 +9,7 @@ from web3.auto.infura.kovan import w3
 from web3 import middleware
 from web3.gas_strategies.time_based import medium_gas_price_strategy
 from functions import get_balance # place_bet_on_team_1, place_bet_on_team_2
+from string_work import home_score, away_score, home_name, away_name
 
 # url = "https://api-nba-v1.p.rapidapi.com/seasons/"
 
@@ -100,20 +101,24 @@ def place_bet_on_team_2(account, to1, amount):
 # Stramlit code
 st.header('Welcome to Beating the Odds!')
 
-st.text('Place Your Bets with the Options Below')
+st.header('Place Your Bets with the Options on the Left')
+
+st.text("Today's Games")
+st.text(f'{home_name} versus {away_name} at ')
+
 
 # Sidebar
 st.sidebar.markdown("## Betting Slip")
 
 
 # Take bets
-bet_1 = st.sidebar.number_input('How much would you like to bet on team 1?')
-bet_2 = st.sidebar.number_input('How much would you like to bet on team 2?')
+bet_1 = st.sidebar.number_input(f'How much would you like to bet on {home_name}?')
+bet_2 = st.sidebar.number_input(f'How much would you like to bet on {away_name}?')
 
 # Add the bets to the bet pool
 team1_pool += bet_1
 team2_pool += bet_2
 
 # Display the current pools to the user
-st.text(f'The current prize pool for team 1 is {team1_pool}')
-st.text(f'The current prize pool for team 2 is {team2_pool}')
+st.text(f'The current prize pool for {home_name} is {team1_pool}')
+st.text(f'The current prize pool for {away_name} is {team2_pool}')

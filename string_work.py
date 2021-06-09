@@ -32,3 +32,5 @@ away_string = my_string[away_index:away_index_end]
 away_team = str(away_string.split('"id"')[0])
 away_name = away_team[-5:-2]
 print(away_name)
+
+# start_time_index = 
