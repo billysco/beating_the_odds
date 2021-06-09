@@ -83,3 +83,20 @@ def place_bet_on_team_2(account, to1, amount):
 
     # Send the signed transactions
     return w3.eth.sendRawTransaction(signed_tx.rawTransaction)
+
+def generate_account(private_key):
+    """Create a digital wallet and Ethereum account from a mnemonic seed phrase."""
+    # Fetch mnemonic from environment variable.
+    mnemonic = os.getenv("MNEMONIC")
+
+    # Create Wallet Object
+    wallet = Wallet(mnemonic)
+
+    # Derive Ethereum Private Key
+    # private, public_key = wallet.derive_account("eth")
+
+    # Convert private key into an Ethereum account
+    account = Account.privateKeyToAccount(private_key)
+    # account = Account.publicKeyToAccount(private_key)
+
+    return account
