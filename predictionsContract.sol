@@ -1,4 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.7.0;
+
 
 contract Predictions {
     
@@ -15,11 +17,9 @@ contract Predictions {
     
     mapping(Side => uint) public bets;
     mapping(address => mapping(Side => uint)) public betsPerGambler;
-    address public oracle;
+    address public base;
     
-    constructor(address _oracle) {
-        oracle = _oracle;
-    }
+    
     // function to create a bet
     function createBet(Side _side) external payable {
         require(eventFinished == false, 'This event is already finished.');
@@ -40,8 +40,9 @@ contract Predictions {
         msg.sender.transfer(gain);
     }
     
+    // function to get the results of the event
     function reportResult(Side _winner, Side _loser) external {
-        require(oracle == msg.sender, 'Only the Oracle can report the results');
+        require(base == msg.sender, 'Only the main account can report the results');
         require(eventFinished == false, 'This event is not finished yet.');
         result.winner = _winner;
         result.loser = _loser;
