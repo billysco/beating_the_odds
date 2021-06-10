@@ -66,16 +66,16 @@ def place_bet_on_team_2(account, to1, amount):
     value = w3.toWei(amount, "ether")
 
     # Calculate gas estimate
-    gasEstimate = w3.eth.estimateGas({"to": to1, "from": account.address, "value": value})
+    gasEstimate = w3.eth.estimateGas({"to": to1, "from": account, "value": value})
 
     # Construct a raw transaction
     raw_tx = {
         "to": to1,
-        "from": account.address,
+        "from": account,
         "value": value,
         "gas": gasEstimate,
         "gasPrice": w3.eth.generateGasPrice(),
-        "nonce": w3.eth.getTransactionCount(account.address)
+        "nonce": w3.eth.getTransactionCount(account)
     }
 
     # Sign the raw transaction with ethereum account
@@ -100,3 +100,66 @@ def generate_account(private_key):
     # account = Account.publicKeyToAccount(private_key)
 
     return account
+
+def payout_team_1(account, to1, bet1, team1_pool, current_prize_pool):
+    # Calculate the amount
+    amount = (bet1/team1_pool)*current_prize_pool
+    # Set gas price strategy
+    w3.eth.setGasPriceStrategy(medium_gas_price_strategy)
+
+    # Convert eth amount to Wei
+    value = w3.toWei(amount, "ether")
+
+    # Convert eth amount to Wei
+    value = w3.toWei(amount, "ether")
+
+    # Calculate gas estimate
+    gasEstimate = w3.eth.estimateGas({"to": to1, "from": account, "value": value})
+
+    # Construct a raw transaction
+    raw_tx = {
+        "to": to1,
+        "from": account,
+        "value": value,
+        "gas": gasEstimate,
+        "gasPrice": w3.eth.generateGasPrice(),
+        "nonce": w3.eth.getTransactionCount(account)
+    }
+
+    # Sign the raw transaction with ethereum account
+    signed_tx = account.signTransaction(raw_tx)
+
+    # Send the signed transactions
+    return w3.eth.sendRawTransaction(signed_tx.rawTransaction)
+
+
+def payout_team_2(account, to1, bet2, team2_pool, current_prize_pool):
+    # Calculate the amount
+    amount = (bet2/team2_pool)*current_prize_pool
+    # Set gas price strategy
+    w3.eth.setGasPriceStrategy(medium_gas_price_strategy)
+
+    # Convert eth amount to Wei
+    value = w3.toWei(amount, "ether")
+
+    # Convert eth amount to Wei
+    value = w3.toWei(amount, "ether")
+
+    # Calculate gas estimate
+    gasEstimate = w3.eth.estimateGas({"to": to1, "from": account, "value": value})
+
+    # Construct a raw transaction
+    raw_tx = {
+        "to": to1,
+        "from": account,
+        "value": value,
+        "gas": gasEstimate,
+        "gasPrice": w3.eth.generateGasPrice(),
+        "nonce": w3.eth.getTransactionCount(account)
+    }
+
+    # Sign the raw transaction with ethereum account
+    signed_tx = account.signTransaction(raw_tx)
+
+    # Send the signed transactions
+    return w3.eth.sendRawTransaction(signed_tx.rawTransaction)
