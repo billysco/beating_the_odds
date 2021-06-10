@@ -35,6 +35,6 @@ away_team = str(away_string.split('"id"')[0])
 away_name = away_team[-5:-2]
 print(away_name)
 
-start_time_index = str(my_string.split('Z","track_on_court"')[0])
-start_time = start_time_index[-8:-1]
+start_time_index = str(my_string.split('","track_on_court"')[0])
+start_time = start_time_index[-20:-1]
 print(start_time)
