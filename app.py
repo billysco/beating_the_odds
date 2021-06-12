@@ -12,7 +12,6 @@ from web3 import middleware
 from web3.gas_strategies.time_based import medium_gas_price_strategy
 from functions import get_balance, generate_account, payout_team_1, payout_team_2, place_bet_on_team_1, place_bet_on_team_2
 from string_work import home_score, away_score, home_name, away_name, start_time, current_date, game_time
-# from time import current_date, game_time
 
 # Set variables for pools
 team1_pool = 0
